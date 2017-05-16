@@ -22,7 +22,11 @@
         <p v-for="item in 50">{{userInfo.username}}</p>
         <x-button @on-click="alertShow = true">切换</x-button>
         <x-button @on-click="goNext()">跳转到下一个页面</x-button>
-
+        <mt-datetime-picker
+            ref="picker"
+            type="datetime"
+            v-model="pickerValue">
+        </mt-datetime-picker>
         <x-alert :show="alertShow" title="我是测试" @on-cancel="alertShow = false"></x-alert>
     </x-content>
 </template>
@@ -31,12 +35,18 @@
     import echarts from 'echarts'
     import swiper from './../../mixins/swiper' // 引入混合的swiper
     import { mapGetters , mapActions } from 'vuex'
+    import DatetimePicker from 'mint-ui/lib/datetime-picker'; // 按需引入组件
+    import 'mint-ui/lib/datetime-picker/style.css'; // 按需引入组件
     export default {
         mixins: [swiper],
+        components: {
+            MtDatetimePicker: DatetimePicker
+        },
         data () {
             return {
                 date:'1494924702',
                 alertShow : false,
+                pickerValue:'',
                 list:[
                     {
                       id:1,
@@ -54,11 +64,10 @@
                 'userInfo'
             ]),
         },
-        created(){
-            this.getHomeDate();
-        },
         mounted(){
+            this.getHomeDate();
             this.initEcharts();
+            this.openPicker();
         },
         methods : {
             ...mapActions([
@@ -76,6 +85,12 @@
                     console.log(res);
                 });
             },
+            openPicker() {
+                this.$refs.picker.open();
+            },
+            /**
+             * 初始化 eCharts 图表
+             * */
             initEcharts(){
                 var myChart = echarts.init(document.getElementById('main'));
 

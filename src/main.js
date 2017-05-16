@@ -9,7 +9,6 @@ import * as filters from './filters/' // 自定义过滤器
 import components from './components/' //加载公共组件
 import { scrollRecord } from './lib/route-data/scroll-record'
 Vue.config.productionTip = false;
-
 /**
  * 引入flex.css
  * 引入所有样式
@@ -21,7 +20,6 @@ import "./assets/css/icon.less"
 import "./assets/css/public.less"
 import "./assets/css/animation.less"
 import "./assets/css/base.less"
-
 
 /**
  * 使用vue-tap，解决移动端click事件延迟300ms
